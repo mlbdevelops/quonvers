@@ -32,8 +32,7 @@ import Header from '@/components/elements/header';
 import styles from '@/styles/create_post.module.scss';
 import GifPicker from '@/components/media/gifPicker';
 import StickerPicker from '@/components/media/stickerPicker';
-import Picker from "@emoji-mart/react";
-import data from "@emoji-mart/data";
+import EmojiPicker from "emoji-picker-react";
 import Location from '@/components/post/transition/location'
 import Repost from '@/components/post/transition/repost'
 
@@ -65,7 +64,7 @@ export default function Create_post({onClose}){
   const [showLocationList, setShowLocationsList] = useState(false);
   const [location, setLocation] = useState('');
   
-  const [emoPicker, setEmoPicker] = useState(false);
+  const [emoPicker, setEmoEmojiPicker] = useState(false);
   const [token, setToken] = useState('');
   const [fontWeight, setFontWeight] = useState('');
   const [selectedLang, setSelectedLang] = useState('');
@@ -248,24 +247,22 @@ export default function Create_post({onClose}){
       
       {emoPicker && (
         <div 
-          className={`fixed bottom-0 left-0 right-0 ${styles.emopicker} z-50 w-[100%] flex items-center justify-center`}
+          className={`fixed bottom-0 left-0 right-0 ${styles.emoEmojiPicker} z-50 w-[100%] flex items-center justify-center`}
           style={{ padding: '8px', paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}
           onClick={(e) => e.stopPropagation()}
         >
-          <Picker
-            data={data}
-            onEmojiSelect={(emoji) => {
-              setPostCaption((prev) => prev + emoji.native);
+          <EmojiPicker
+            
+            onEmojiClick={(emoji) => {
+              setPostCaption((prev) => prev + emoji.emoji);
               resize();
             }}
             theme="dark"
-            previewPosition="none"
-            searchPosition="none"
-            maxFrequentRows={3}
-            emojiSize={28}
-            perLine={9}
-            className='w-[100%]'
-            width={'100%'}
+            height={350}
+            width='100%'
+            searchDisabled={true}
+            skinTonesDisabled={true}
+            previewConfig={{ showPreview: false }}
           />
         </div>
       )}
@@ -353,7 +350,7 @@ export default function Create_post({onClose}){
           ref={textareaRef}
           value={postCaption}
           autoFocus
-          onFocus={() => setEmoPicker(false)}
+          onFocus={() => setEmoEmojiPicker(false)}
           onInput={(e) => {
             resize()
             setPostCaption(e.target.value)
@@ -372,14 +369,14 @@ export default function Create_post({onClose}){
         <div className='flex items-center gap-4 pl-1'>
           
           {!emoPicker? (<Smile size={20} onClick={() => {
-            setEmoPicker((prev) => prev? false : true) 
+            setEmoEmojiPicker((prev) => prev? false : true) 
             setShowSticker(false) 
-            setShowGif(false)}}/>) : (<X size={20} onClick={() => setEmoPicker(false)}/>)}
+            setShowGif(false)}}/>) : (<X size={20} onClick={() => setEmoEmojiPicker(false)}/>)}
           
           {!showSticker?<Sticker size={20}
             onClick={() => {
               setShowSticker(true)
-              setEmoPicker(false)
+              setEmoEmojiPicker(false)
               setShowGif(false)
             }}
           />: (<X size={20} onClick={() => setShowSticker(false)}/>) }
@@ -389,7 +386,7 @@ export default function Create_post({onClose}){
             onClick={() => {
               setShowGif(!showGif)
               setShowSticker(false)
-              setEmoPicker(false)
+              setEmoEmojiPicker(false)
             }}
           >GIF</span> : (<X size={20} onClick={() => {
             setShowGif(false)

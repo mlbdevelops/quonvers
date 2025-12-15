@@ -10,8 +10,7 @@ import styles2 from "@/styles/home.module.scss";
 import { v4 as uuid } from 'uuid';
 import MediaPicker from '@/components/ui/chat/mediaPickerContainer';
 import ChatSettings from '@/components/ui/chat/settings/chatSettings';
-import Picker from "@emoji-mart/react";
-import data from "@emoji-mart/data";
+import EmojiPicker from "emoji-picker-react";
 
 export default function ChatPage() {
   const [emoPicker, setEmoPicker] = useState(false);
@@ -267,21 +266,20 @@ export default function ChatPage() {
 
       {emoPicker && (
         <div 
-          className={`${styles.emopicker} z-50`}
+          className={`w-full ${styles.emopicker} z-50`}
           style={{ padding: '8px', paddingBottom: 'max(8px, env(safe-area-inset-bottom))' }}
           onClick={(e) => e.stopPropagation()}
         >
-          <Picker
-            data={data}
-            onEmojiSelect={(emoji) => {
-              setUserMessage((prev) => prev + emoji.native);
+          <EmojiPicker
+            onEmojiClick={(emoji) => {
+              setUserMessage((prev) => prev + emoji.emoji);
             }}
             theme="dark"
-            previewPosition="none"
-            searchPosition="none"
-            maxFrequentRows={1}
-            emojiSize={28}
-            perLine={9}
+            height={350}
+            width='100%'
+            searchDisabled={true}
+            skinTonesDisabled={true}
+            previewConfig={{ showPreview: false }}
           />
         </div>
       )}
