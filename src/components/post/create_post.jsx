@@ -25,7 +25,7 @@ import { useState, useEffect, useRef } from 'react';
 import Confirm from '@/components/ui/confirm.jsx'
 import Loader from '@/components/ui/loading.jsx';
 //import { useTranslation } from 'react-i18next';
-import { remove } from '@/hooks/quonversCachingSystem.js';
+import useCache from '@/hooks/quonversCachingSystem.js';
 //import { Toast } from '@capacitor/toast';
 import { Photos, ChevronDown } from 'lucide-react';
 import Header from '@/components/elements/header';
@@ -58,7 +58,7 @@ export default function Create_post({onClose}){
   const [isSuccess, setSuccess] = useState(false);
   const [langList, setLangList] = useState(false);
   const [ageList, setAgeList] = useState(false);
-  
+  const { remove } = useCache();
   const [repost, setRepost] = useState(true);
   const [showRepost, setShowRepost] = useState(false);
   const [showLocationList, setShowLocationsList] = useState(false);
