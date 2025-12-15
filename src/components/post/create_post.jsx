@@ -167,6 +167,7 @@ export default function Create_post({onClose}){
     if (res.ok) {
       setIsLoading(false)
       onClose('close')
+      remove('posts')
     }
   }
   

@@ -63,7 +63,7 @@ export default function theme({close}){
         }}
       >
         {mockThemes.map((theme, i) => (
-          <div onClick={onCloseB} className='flex flex-col'
+          <div onClick={onCloseB} className='flex flex-col active:scale-90 transition'
             style={{
               transform: 'scale(0.93)',
             }}
