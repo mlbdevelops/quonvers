@@ -1,0 +1,39 @@
+.load{
+  animation: spinner 1s linear infinite ;
+}
+
+.loader{
+  animation: spin 0.5s alternate infinite ;
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 10px;
+}
+
+@keyframes spin{
+  0%{
+    transform: scale(1);
+  }
+  100%{
+    transform: scale(0.50);
+  }
+}
+
+@keyframes spinner{
+  100%{
+    transform: rotate(360deg);
+  }
+}
+
+.main{
+  animation: bounce 0.3s ease;
+}
+
+@keyframes bounce{
+  from{
+    transform: scale(0);
+  }
+  to{
+    transform: scale(1);
+  }
+}

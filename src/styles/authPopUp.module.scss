@@ -1,0 +1,126 @@
+.back{
+  height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 30px;
+  
+  .q{
+    height: 200px;
+    width: 200px;
+    font-size: 700px;
+    border-radius: 500px; 
+    right: 10px;
+    top: 150px;
+    position: fixed;
+    padding: 0;
+    margin: 0;
+    animation: colorChange 1s alternate infinite;
+  }
+  
+  .q2{
+    height: 160px;
+    width: 160px;
+    padding: 0;
+    margin: 0;
+    left: 10px;
+    bottom: 150px;
+    position: fixed;
+    border-radius: 500px; 
+    animation: colorChange 1s alternate infinite;
+  }
+  
+  .body{
+    height: 100%;
+    width: 100%;
+    top: 0;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 40px 0;
+    
+    .h1{
+      font-size: 50px; 
+      margin-top: 40px;
+      font-family: Arial;
+      border-right: 3px solid;
+      height: 43px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      animation: typer infinite 0.7s;
+      padding: 0;
+      color: #6a69fe;
+    }
+    
+    .optionsDiv{
+      width: 80%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      
+      .divider{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        color: darkgray;
+        
+        .div{
+          width: 35%;
+          border: 1px solid #6a69fe30;
+        }
+      }
+      
+      .option{
+        width: 100%;
+        background-color: #1d1d1dc1;
+        display: flex;
+        align-items: center;
+        padding: 5px;
+        border-radius: 50px;
+        gap: 10px;
+        
+        .icon{
+          height: 40px; 
+          width: 40px; 
+          background-color: #6a69fe19;
+          border: 1px solid #6a69fe16;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 50px;
+          color: #6a69fec0;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+@keyframes typer{
+  from{
+    border-color: transparent;
+  }
+  to{
+    border-color: white;
+  }
+}
+
+@keyframes colorChange{
+  from{
+    background-color: #6a69fe;
+    opacity: 0.5;
+  }
+  to{
+    background-color: #c460ff;
+    opacity: 0.7;
+  }
+}

@@ -1,0 +1,28 @@
+.addPostButton{
+  color: white;
+  animation: bounse 0.2s;
+  bottom: 80px;
+  position: fixed;
+  right: 20px;
+  height: 55px;
+  width: 55px;
+  background-color: #6a69fe;
+  border-radius: 100px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  transition: 0.3s;
+  
+  &:active{
+    transform: scale(0.80);
+  }
+}
+
+@keyframes bounse{
+  from{
+    transform: scale(0.50);
+  }
+  to{
+    transform: scale(1);
+  }
+}

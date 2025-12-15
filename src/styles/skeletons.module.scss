@@ -1,0 +1,12 @@
+.chatSkeleton{
+  animation: fade 1.2s alternate infinite;
+}
+
+@keyframes fade{
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0.3;
+  }
+}

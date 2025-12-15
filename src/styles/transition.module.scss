@@ -1,0 +1,72 @@
+.trans{
+  animation: sizer 0.3s ease-in;
+}
+
+@keyframes sizer{
+  from{
+    opacity: 0;
+    bottom: -500px;
+  }
+  to{
+    opacity: 1;
+    bottom: 5px;
+  }
+}
+
+.fade{
+  animation: fade 1s alternate infinite ease-in;
+}
+
+@keyframes fade{
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0.3;
+  }
+}
+
+.trans2{
+  animation: sizer2 0.2s;
+}
+
+@keyframes sizer2{
+  from{
+    opacity: 0;
+    bottom: -500px;
+  }
+  to{
+    opacity: 1;
+    bottom: 0;
+  }
+}
+
+.trans3{
+  animation: sizer3 0.3s ease-in;
+}
+
+@keyframes sizer3{
+  from{
+    opacity: 0;
+    bottom: -300px;
+  }
+  to{
+    opacity: 1;
+    bottom: 10px;
+  }
+}
+
+.width{
+  animation: widther 0.1s linear;
+}
+
+@keyframes widther{
+  from{
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
+}

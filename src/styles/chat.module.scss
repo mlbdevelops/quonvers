@@ -1,0 +1,82 @@
+.msgInput{
+  font-family: Arial;
+  height: 70%;
+  flex : 1;
+  padding: 5px;
+  resize: none;
+  border: none;
+  outline: none;
+}
+
+.msgLeft{
+  width: clamp(50px, auto, 230px);
+  align-self: flex-start;
+  max-width: 280px;
+  text-align: start;
+  margin: 5px 10px;
+  word-break: line-break;
+  font-size: 14.5px;
+  word-break: break-word;
+  align-items: flex-start;
+  display: flex;
+  gap: 6px;
+  
+  .msgTextLeft{
+    background-color: #262626; 
+    border-radius: 20px 20px 20px 20px;
+    padding: 8px 12px;
+  }
+}
+
+.msgRight{
+  width: clamp(50px, auto, 230px);
+  align-self: flex-end;
+  align-items: flex-end;
+  max-width: 250px;
+  margin: 5px 10px;
+  word-break: line-break;
+  font-size: 14.5px;
+  word-break: break-word;
+  display: flex;
+  
+  .msgTextRight{
+    padding: 8px 12px;
+    background-color: #6051ff;
+    border-radius: 20px 20px 20px 20px;
+    text-align: start;
+  }
+}
+
+.day{
+  font-size: 10px;
+  color: darkgray;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin: 2px;
+}
+
+.emoPicker{
+  .EmojiPickerReact{
+    .epr-search-container{
+      input{
+        color: red;
+      }
+    }
+    
+    .epr-emoji-category-label{
+      background-color: red;
+    }
+  }
+  animation: sizer 1s;
+}
+
+@keyframes sizer{
+  from{
+    opacity: 0;
+  }
+  
+  to{
+    opacity: 1;
+  }
+}
