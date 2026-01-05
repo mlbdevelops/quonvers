@@ -1,5 +1,4 @@
-
-"use client"
+'use client'
 
 import { Settings, ChevronLeft, Send, Smile, Plus, Clock, Check, Keyboard, Phone, Video, Mic, Images, Sticker, Play, Pause, ArrowLeft } from "lucide-react";
 import { useRouter, useParams } from "next/navigation";

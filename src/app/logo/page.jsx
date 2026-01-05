@@ -1,3 +1,5 @@
+"use client"
+
 import { MessageCircle, Send } from 'lucide-react'
 
 export default function logo(){
