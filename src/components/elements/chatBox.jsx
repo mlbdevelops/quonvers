@@ -19,7 +19,7 @@ export default function chatBox({name, message, time, profile, is_read, roomId, 
   return(
     <div onClick={() => {
       send_seen()
-      router.push(`/chat/${roomId}`)
+      router.push(`/chat?chat_id=${encodeURIComponent(roomId)}`)
     }} className='flex justify-between w-full h-[72px] p-3 items-center gap-2 active:bg-[#1d1d1d50]'>
       <div>
         {profile? <Image 

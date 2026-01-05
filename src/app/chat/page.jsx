@@ -22,7 +22,8 @@ export default function ChatPage() {
   const router = useRouter();
   const search = useParams();
   const searchParams = new URLSearchParams(window.location.search).get('user');
-  const chat_id = decodeURIComponent(search.chat_id);
+  const searchParameters = new URLSearchParams(window.location.search);
+  const chat_id = decodeURIComponent(searchParameters.get('chat_id'));
   const [user_content, set_user_content] = useState("");
   const [user, setUserId] = useState("");
   const [theme, set_theme] = useState("");
@@ -211,7 +212,7 @@ export default function ChatPage() {
     }}>
       <div className="flex gap-2 items-center">
         <ArrowLeft className='ml-2 mr-2' onClick={() => router.back()} />
-        {!recipient.profile ? (
+        {!recipient?.profile ? (
           <div className="bg-[rgba(106,105,254,0.125)] w-8 h-8 rounded-full flex justify-center items-center text-[#6a69fe] font-bold">
             {recipient?.name?.slice(0, 1).toUpperCase() || "•••"}
           </div>
@@ -236,7 +237,7 @@ export default function ChatPage() {
     <div className='w-full flex flex-col items-center gap-2 overflow-hidden' style={{
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}>
-      {!recipient.profile ? (
+      {!recipient?.profile ? (
         <div className="bg-[rgba(106,105,254,0.125)] w-25 h-25 rounded-full flex justify-center items-center text-[#6a69fe] font-bold text-3xl">
           {recipient?.name?.slice(0, 1).toUpperCase() || "•••"}
         </div>
@@ -244,7 +245,7 @@ export default function ChatPage() {
         <Photo
           className="w-25 h-25 rounded-full border border-[#1d1d1d]" 
           loading_box_style="w-25 h-25 rounded-full border border-[#1d1d1d]" 
-          src={recipient.profile} />
+          src={recipient?.profile} />
       )}
       <strong className='text-3xl'>{recipient?.name}</strong>
       <span className='text-[darkgray]'>{recipient?.username}</span>
@@ -263,8 +264,8 @@ export default function ChatPage() {
       {settings && <ChatSettings loggedUser={user} room={room} onClose={(close) => {
         close && setSettings(false)
         if (close.close_type == 'theme') {
-          change_theme(room.participants, close.content, room._id, user)
-          set_theme(close.content.theme_url)
+          change_theme(room?.participants, close?.content, room?._id, user)
+          set_theme(close?.content?.theme_url)
         }
       }}/>}
       
@@ -283,7 +284,7 @@ export default function ChatPage() {
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
         }}>
         <div className="flex flex-col items-center text-center">
-          {msgs.map((msg, i) => (
+          {msgs?.map((msg, i) => (
             <Chat_component
               key={i}
               //
