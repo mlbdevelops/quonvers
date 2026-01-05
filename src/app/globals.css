@@ -6,3 +6,7 @@ body {
   font-family: Arial;
   user-select: none;
 }
+
+body:webkit-scrollbar{
+  display: none;
+}

@@ -3,7 +3,7 @@
 import Header from '@/components/elements/header'
 import Post from '@/components/elements/post'
 import PostSkeleton from '@/components/ui/postSkeleton'
-import { Menu, Search, UserCircle, Plus, Photos, Sticker, Filter, Sliders } from 'lucide-react'
+import { Menu, Search, UserCircle, Plus, Photos, Sticker, Filter, Sliders, Bell } from 'lucide-react'
 import { useRouter, useParams } from 'next/navigation'
 import styles from '@/styles/discover.module.scss'
 import fade from '@/styles/transition.module.scss'
@@ -71,7 +71,6 @@ export default function discoverTab(){
       }
     } catch (error) {
       console.error(error);
-      alert(error);
     }
   }
   
@@ -194,28 +193,21 @@ export default function discoverTab(){
       {/*header*/} 
       
       <Header title='Feed' right={[
-        
-        <div onClick={() => set_show_filter(true)} key={1} className='flex items-center gap-2 rounded-full border pl-2 pr-2 bg-[rgba(106,105,254,0.125)] text-[#6a69fe]' style={{
-          border: '0.5px solid #6a69fe7a'
-        }}>
-          <span className='text-[16px]'>
-            Memes
-          </span>
-          <Sliders 
-            size={17} 
-            key={1}
-          />
-        </div>,
-        
         <Search key={2} onClick={() => router.push('/search')}/>,
         <UserCircle key={3} onClick={() => router.push('/search')}/>,
        ]}/>
       
       {/*body*/}
       
+      {create && <Create_post onClose={() => setCreate(false)}/> }
+      
       {show_filter && <FilterBox onClose={(e) => {
         set_show_filter((val) => !val)
       }}/>}
+      
+      <button onClick={() => setCreate(true)} className={styles.addPostButton}>
+        <Plus/>
+      </button>
       
       <div ref={bodyRef} className='flex-1 w-full flex flex-col items-center overflow-y-scroll pb-20 pt-0'>
         <div className={`w-full p-2 min-h-[180px] flex gap-3 overflow-x-scroll justify-evenly items-center ${fade.fade}`}

@@ -1,5 +1,5 @@
 import "./globals.css";
-import SocketProvider from '../sockets/socketProbider.js'
+import SocketProvider from '../sockets/socketProvider.js'
 import Head from 'next/head'
 
 export const metadata = {
@@ -14,12 +14,12 @@ export default function RootLayout({ children }) {
       <body
         className={`antialiased`}
       >
-        <Head>
-          {/*<link rel="icon" type="image/png" href="/logo.png" />*/}
-          {/*<link rel="apple-touch-icon" type="image/png" href="/logo.png" />*/}
-          {/*<link rel="manifest" href="/manifest.webmanifest" />*/}
+        <headers>
+          <link rel="icon" type="image/png" href="/logo.png" />
+          <link rel="apple-touch-icon" type="image/png" href="/logo.png" />
+          {/*<link rel="manifest" href="/manifest.json" />*/}
           <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        </Head>
+        </headers>
         {children}
         <SocketProvider/>
       </body>

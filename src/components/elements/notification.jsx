@@ -4,7 +4,7 @@ export default function NotificationBox({notification}) {
   return(
     <div className={`w-[100%] flex p-2 gap-2 items-center ${notification.isSeen? '' : 'bg-[#6a69fe17]'} active:bg-[rgb(26,26,26)]`}>
       
-      <div className='h-13 w-13 flex gap-2 items-center justify-center text-[#6a69fe] rounded-full bg-[rgba(106,105,254,0.125)]' style={{
+      <div className='h-13 w-13 flex gap-2 items-center justify-center text-[#6a69fe] rounded-full bg-[rgba(106,105,254,0.125)] font-bold' style={{
         position: 'relative',
       }}>
         {notification.user.username[0].toUpperCase()}

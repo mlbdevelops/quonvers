@@ -2,6 +2,7 @@ import { useRouter } from 'next/navigation'
 import dateFormat from '@/utils/dayjs.js'
 import { useState, useEffect } from 'react'
 import socket from "@/sockets/socket";
+import Image from '@/components/elements/image'
 
 export default function chatBox({name, message, time, profile, is_read, roomId, lastMsgSender, loggedUserId, lastMsgSenderId}){
   const router = useRouter()
@@ -19,9 +20,12 @@ export default function chatBox({name, message, time, profile, is_read, roomId, 
     <div onClick={() => {
       send_seen()
       router.push(`/chat/${roomId}`)
-    }} className='flex justify-between w-full h-[65px] p-3 items-center gap-2 active:bg-[rgb(26,26,26)]'>
+    }} className='flex justify-between w-full h-[72px] p-3 items-center gap-2 active:bg-[#1d1d1d50]'>
       <div>
-        {profile? <img className={'h-12 w-12 rounded-full border border-[#262626]'} src={profile}/> : <div className={'bg-[rgba(106,105,254,0.125)] w-12 h-12 rounded-[100px] flex justify-center items-center text-[#6a69fe] font-bold '}>{'H' || name[0].toUpperCase() || 'H'}</div>}
+        {profile? <Image 
+          className={'h-13 w-13 rounded-full border border-[#1d1d1d]'} 
+          loading_box_style={'h-13 w-13 rounded-full bg-[#1d1d1d]'}
+          src={profile}/> : <div className={'bg-[rgba(106,105,254,0.125)] w-13 h-13 rounded-[100px] flex justify-center items-center text-[#6a69fe] font-bold '}>{name[0].toUpperCase() || '?'}</div>}
       </div>
       <div className='flex flex-col items-start flex-1 gap-1'>
         <strong>

@@ -1,5 +1,6 @@
 import Header from '@/components/elements/header'
 import NotificationBox from '@/components/elements/notification'
+import { UserCircle } from 'lucide-react'
 
 export default function notificationsTab(){
   
@@ -60,6 +61,9 @@ export default function notificationsTab(){
     <div className='h-screen w-full text-center flex justify-between items-center flex-col'>
       <Header 
         title='Notifications'
+        right={[
+          <UserCircle key={3} onClick={() => router.push('/search')}/>,
+        ]}
       />
       <div className='w-full flex-1 flex flex-col items-center overflow-scrollf pb-20'>
         

@@ -90,6 +90,7 @@ export default function AuthPopUp(){
         {notif && notif.title && <Confirm
           msg={notif.msg}
           title={notif.title}
+          onClose={() => setNotif({})}
           actions={[
             <div className='w-full' onClick={() => setNotif({})}>
               Ok
@@ -100,13 +101,13 @@ export default function AuthPopUp(){
         <div className={styles.optionsDiv}> 
           <div className={styles.option}>
             <div className={styles.icon}>
-              <UserPlus/>
+              <UserPlus size={17}/>
             </div>
             Create an account
           </div>
           <div onClick={() => setLogin(true)} className={styles.option}>
             <div className={styles.icon}>
-              <Lock/>
+              <Lock size={17}/>
             </div>
             Login
           </div>

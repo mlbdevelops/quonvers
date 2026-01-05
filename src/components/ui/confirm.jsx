@@ -1,9 +1,10 @@
 import styles from '@/styles/confirm.module.scss';
 
-export default function Confirm({title, msg, actions, nextColor}){
+export default function Confirm({title, msg, actions, nextColor, onClose}){
+  
   return(
-    <div className={styles.blur}>
-      <div className={styles.msgBox}>
+    <div onClick={onClose} className={styles.blur}>
+      <div onClick={(e) => e.stopPropagation()} className={styles.msgBox}>
         <strong style={{
           fontSize: '30px',
           margin: '15px 0 0 0',

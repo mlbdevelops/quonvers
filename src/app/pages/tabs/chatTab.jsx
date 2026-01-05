@@ -7,7 +7,7 @@ import useCache from '@/hooks/quonversCachingSystem'
 import dayjs from '@/utils/dayjs.js'
 import socket from "@/sockets/socket";
 
-export default function ChatTab(){
+export default function ChatTab({onEmit}){
   
   const { setProvider, getProvider } = useCache()
   const [conversations, setConversations] = useState(getProvider('conversationsList') || []);
@@ -70,6 +70,7 @@ export default function ChatTab(){
         const filtered = prev.filter((c, i) => i !== index)
         return [updatedConv, ...filtered]
       })
+      onEmit()
     }
     
     socket.on('receive_message', handler)
@@ -85,7 +86,7 @@ export default function ChatTab(){
           type='text'
           className='bg-[#1d1d1d] p-3 pl-5 pr-5 rounded-[50px] w-[94%] flex items-center text-[darkgray] justify-start gap-3' 
         ><Search size={20}/> Search...</div>
-        <div className='w-[100%] flex flex-col gap-2 mt-4'>
+        <div className='w-[100%] flex flex-col mt-4'>
           {conversations.length >= 1? conversations.map((msg, i) => {
             const getOtherUser = msg?.participants.find(u => u.id !== user)
             return (

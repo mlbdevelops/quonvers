@@ -8,7 +8,6 @@ export default function post({singlePost}){
   const owner = singlePost.data.owner
   const repost = singlePost.data.repost
   const caption = singlePost.data.caption
-  console.log(singlePost)
   
   const [liked, setLiked] = useState(false)
   const [showLongCaption, setShowLongShort] = useState(false)
@@ -68,7 +67,7 @@ export default function post({singlePost}){
       
       {/*Post body*/}
       
-      <p className={`text-left ${repost.repost? null : 'm-1'} ml-3`}
+      <p className={`text-left ${repost.repost? null : 'm-1'} ml-13`}
         style={{
           wordBreak: 'break-word'
         }}
@@ -109,7 +108,7 @@ export default function post({singlePost}){
         null
       }
       
-      <div className='relative flex gap-5 ml-2 text-[#c5c5c5]'>
+      <div className='relative flex gap-5 ml-13 text-[#c5c5c5]'>
         
         <div className='flex items-center gap-2 h-5'>
           <Smile
