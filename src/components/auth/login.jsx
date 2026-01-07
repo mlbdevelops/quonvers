@@ -59,11 +59,7 @@ export default function Login({close}){
         <Confirm
           msg={msgData.msg}
           title={msgData.title}
-          actions={[
-            <div className='w-full' onClick={() => setMsgData({})}>
-              Ok
-            </div>
-          ]}
+          onSubmit={() => setMsgData({})}
         />
       }
       

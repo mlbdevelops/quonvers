@@ -22,11 +22,11 @@
     flex-direction: column;
     width: 310px;
     border-radius: 30px;
-    padding: 10px;
     min-height: 200px;
     background-color: #1d1d1d;
     word-break: break-word;
     animation: confirm 0.2s;
+    overflow: hidden;
     
     .input{
       padding: 10px;

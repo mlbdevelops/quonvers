@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { Grid } from '@giphy/react-components';
+//import { Grid } from '@giphy/react-components';
 import { GiphyFetch } from '@giphy/js-fetch-api';
 import { stickers } from '@/stickers/stickers'
 import trans from '@/styles/transition.module.scss'

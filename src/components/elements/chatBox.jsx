@@ -1,3 +1,5 @@
+"use client"
+
 import { useRouter } from 'next/navigation'
 import dateFormat from '@/utils/dayjs.js'
 import { useState, useEffect } from 'react'
