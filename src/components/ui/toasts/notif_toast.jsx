@@ -28,7 +28,7 @@ export default function Notif_toast({icon, type, description, user, onClose, roo
   return(
     <div ref={body} className={`w-full h-15 bottom-15 fixed flex items-center justify-center z-20 ${styles.toast_trans}`}>
       <div onClick={() => {
-        type == 'msg' || type == 'theme' && room && router.push(`/chat?chat_id=${room}`)
+        type == 'text' || type == 'theme' && room && router.push(`/chat?chat_id=${room}`)
       }} draggable={true} className='w-[95%] h-[95%] rounded-full bg-[#1a1a2a] gap-2 flex items-center justify-evenly p-1.5 active:scale-98 transition active:opacity-97'>
         {!icon? <div className='w-[45px] h-[45px] bg-blue-500 rounded-full font-bold shrink-0 flex items-center justify-center'>
           {type == 'msg'? user.name[0].toUpperCase() : type == 'theme'? <Palette/> : null}

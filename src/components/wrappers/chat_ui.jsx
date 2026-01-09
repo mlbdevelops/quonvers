@@ -1,5 +1,6 @@
 "use client"
 
+import dynamic from 'next/dynamic'
 import { Settings, ChevronLeft, Send, Smile, Plus, Clock, Check, Keyboard, Phone, Video, Mic, Images, Sticker, Play, Pause, ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
@@ -11,10 +12,12 @@ import { v4 as uuid } from 'uuid';
 import MediaPicker from '@/components/ui/chat/mediaPickerContainer';
 import ChatSettings from '@/components/ui/chat/settings/chatSettings';
 import Chat_component from '@/components/ui/chat/chat_component';
+import Media_sheet from '@/components/ui/chat/chat_options/media_sheet';
 import { useVoiceRecorder } from '@/components/ui/chat/record/voice_recorder';
 import EmojiPicker from "emoji-picker-react";
-import Sheet from '@/components/ui/chat/chat_options/sheet';
+import Sheet from '@/components/elements/sheet';
 import Image from '@/components/elements/image'
+import MsgFocus from '@/components/ui/chat/chat_options/message_focus'
 
 export default function ChatPage() {
   const { recording, startRecording, stopRecording, audioURL, audioBlob } = useVoiceRecorder()
@@ -30,6 +33,9 @@ export default function ChatPage() {
   const [roomId, setRoomId] = useState(chat_id);
   const [room, setRoom] = useState({});
   const [recipient, setRecipient] = useState({});
+  const [nickname, set_nickname] = useState(typeof room.nicknames == 'Array' && room?.nicknames.find(n => n.user_id === recipient.id)?.nickname || "");
+  console.log(room)
+  console.log(recipient)
   const [msgs, setMsgs] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [audio_playing, set_playing_audio] = useState(false);
@@ -42,6 +48,7 @@ export default function ChatPage() {
   const textareaRef = useRef(null)
   const reciProfile = useRef(null)
   const recorder_button = useRef(null)
+  const [show_msg_focus, set_show_msg_focus] = useState({} || null)
   const [show_sheet, set_show_sheet] = useState(false)
   const [counter_second, set_counter_sec] = useState(0)
   const [counter_min, set_counter_min] = useState(0)
@@ -207,23 +214,25 @@ export default function ChatPage() {
   }
 
   const header = (
-    <div className="flex justify-between items-center w-full pl-2 pr-2 h-[65px]" style={{
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    <div className="flex justify-between items-center w-full pl-2 pr-2 h-[55px]" style={{
+      backgroundColor: 'rgba(0, 0, 0, 0.9)',
     }}>
       <div className="flex gap-2 items-center">
-        <ArrowLeft className='ml-2 mr-2' onClick={() => router.back()} />
+        <ArrowLeft className='ml-1 mr-1' onClick={() => router.back()} />
         {!recipient?.profile ? (
           <div className="bg-[rgba(106,105,254,0.125)] w-8 h-8 rounded-full flex justify-center items-center text-[#6a69fe] font-bold">
-            {recipient?.name?.slice(0, 1).toUpperCase() || "•••"}
+            {recipient.name? recipient?.name?.slice(0, 1).toUpperCase() || "•••" : nickname}
           </div>
         ) : (
           <Image 
             ref={reciProfile} 
             className="w-8 h-8 rounded-full" 
-            loading_box_style="bg-[#1d1d1d] w-8 h-8 rounded-full" 
+            loading_box_style="bg-[#1d1d1d9c] w-8 h-8 rounded-full" 
             src={recipient.profile} />
         )}
-        <span>{recipient?.name || "•••"}</span>
+      </div>
+      <div onClick={() => setSettings(true)} className='flex-1 ml-2 mr-3 overflow-hidden text-ellipsis whitespace-nowrap'>
+        <span className=''>{recipient?.name || "•••"}</span>
       </div>
       <div className="flex items-center gap-5">
         <Phone fill='white'/>
@@ -278,7 +287,23 @@ export default function ChatPage() {
         />
       }
       
-      {show_sheet && <Sheet onClose={() => set_show_sheet(false)}/>}
+      {show_msg_focus?.id && (
+        <MsgFocus
+          msg={show_msg_focus}
+          user={user}
+          onClose={() => {
+            set_show_msg_focus(false)
+          }}
+        />
+      )}
+      
+      {show_sheet && (
+        <Sheet
+          onClose={() => set_show_sheet(false)}
+          body={<Media_sheet/>}
+          className='h-[95%] bg-[#111111]'
+        />
+      )}
       
       <div className="h-full w-full flex-1 overflow-scroll flex flex-col pb-5" style={{
           backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -296,7 +321,10 @@ export default function ChatPage() {
               user={user}
               id={msg._id}
               is_last={msgs[msgs.length - 1]._id === msg._id}
-              onContextMenu={() => set_show_sheet(true)}
+              onContextMenu={(e) =>{
+                set_show_msg_focus(e)
+                setEmoPicker(false)
+              }}
             />
           ))}
         </div>
@@ -314,7 +342,15 @@ export default function ChatPage() {
           <div className={`${recording? 'w-12' : 'w-[83%]'} mb-2 mt-1 rounded-full h-12 overflow-hidden flex items-center justify-between pl-3 pr-3 gap-3  backdrop-blur-[5px]`} style={{
             backgroundColor: '#2c2535',
           }}> 
-            <Plus style={{ transform: isMedia? 'rotate(315deg)' : null }} onClick={() => { setEmoPicker(false); setIsMedia(!isMedia); }} />
+            <Plus 
+              style={{ 
+                transform: isMedia? 'rotate(315deg)' : null
+              }} 
+              onClick={() => { 
+                setEmoPicker(false); 
+                setIsMedia((v) => !v);
+              }}
+            />
             <textarea
               className={styles.msgInput}
               placeholder="Message..."
@@ -328,7 +364,11 @@ export default function ChatPage() {
               onInput={(e) => { set_user_content(e.target.value); type(); }}
             />
             <Smile
-              onClick={() => { setEmoPicker((prev) => !prev); setIsMedia(false) }}
+              onClick={() => { 
+                set_show_sheet(true)
+                setIsMedia(false) 
+                setEmoPicker(false)
+              }}
             />
           </div>
           <div className={`${!recording? 'w-12' : 'w-[85%]'} h-12 rounded-full text-white flex items-center justify-center bg-[#6a69fe] transition ${recording && styles.sender}`} onClick={() => sendMessage()}>

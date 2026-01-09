@@ -50,7 +50,10 @@ export default function WaveformPlayer({ audioUrl, user_profile_url, user_name, 
   }
   
   return (
-    <div style={style} className={`w-[250px] h-15 rounded-full ${sender === user? 'rounded-br-md' : 'rounded-bl-md'} bg-[#303030] flex items-center p-2 justify-evenly gap-3 ${place}`}>
+    <div style={{ 
+      ...style
+      
+    }} className={`w-[250px] h-15 rounded-full ${sender === user? 'rounded-br-md' : 'rounded-bl-md'} bg-[#303030] flex items-center p-2 justify-evenly gap-3 ${place}`}>
       {user_profile_url? <Image 
         className='w-11 h-11 rounded-full flex items-center justify-center text-2xl font-bold bg-[#2524ff91]' 
         loading_box_style='w-11 h-11 rounded-full flex items-center justify-center text-2xl font-bold bg-[#2524ff91]' 
@@ -59,7 +62,7 @@ export default function WaveformPlayer({ audioUrl, user_profile_url, user_name, 
       <div>
         {!isPlaying? <Play fill='white' onClick={(e) => play_audio(e)}/> : 
         <Pause fill={'white'} onClick={(e) => pause_audio(e)}/>}
-        <audio ref={audio_player} src={audioUrl}/>
+        <audio preload='none' ref={audio_player} src={audioUrl}/>
       </div>
       <div className='flex-1 bg-[#f2f2f224] p-2 rounded-full' ref={waveformRef} />
     </div>

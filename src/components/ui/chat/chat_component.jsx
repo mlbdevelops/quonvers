@@ -12,7 +12,9 @@ export default function Chat_component({msg, recipient, i, user, is_last, curren
   const reciProfile = useRef(null)
   
   return(
-    <div onContextMenu={onContextMenu} onClick={() => setShow_time(!show_time)} key={i} className={msg.sender_id === user ? styles.msgRight : styles.msgLeft}>
+    <div onContextMenu={() => {
+      onContextMenu(msg.type != 'chat_set' && msg)
+    }} onClick={() => setShow_time(!show_time)} key={i} className={msg.sender_id === user && msg.type != 'chat_set' ? styles.msgRight : msg.sender_id !== user && msg.type != 'chat_set'? styles.msgLeft : null}>
       
       {/*msg.sender_id !== user && recipient?.profile? <Image style={{
         marginBottom: show_time? '19px' : null,
@@ -29,14 +31,14 @@ export default function Chat_component({msg, recipient, i, user, is_last, curren
         
         {/*Chat component content*/}
         
-        {msg.type == 'text'? <div 
+        {msg.type == 'text' || msg.type == "emoji"? <div 
           className={msg.sender_id === user ? styles.msgTextRight : styles.msgTextLeft}
           style={{
             backgroundColor: msg.type === 'text'? '' : 'transparent',
             fontSize: msg.type === 'text'? null : 40,
             padding: msg.type === 'text'? null : 0,
           }}
-        >{msg.content}</div> 
+        >{msg?.content}</div> 
         
         : msg.type == 'voice'?
         
@@ -52,11 +54,19 @@ export default function Chat_component({msg, recipient, i, user, is_last, curren
           style={{
             backgroundColor : msg.sender_id == user? '#6a69fe' : '#2c1e55'
           }}
-        /> : null}
+        /> : msg.type == 'chat_set'? (
+          <div className='w-screen flex items-center justify-center text-[13px] mt-3 mb-3 pt-1 pb-1 gap-1'>
+            {msg.sender_id == user? 'You ' : `${recipient?.name.split(' ')[0]} `}
+            {msg?.content}
+            <strong className='text-[#6a69fe]'>
+              {msg?.set}
+            </strong>
+          </div>
+        ) : null}
         
         <div style={{
           justifyContent: msg.sender_id == user? 'flex-end' : 'flex-start',
-          display: show_time? 'flex' : 'none',
+          display: show_time && msg.type != 'chat_set'? 'flex' : 'none',
         }} className={styles.day}>
           {dateFormat(msg.updatedAt)}
           

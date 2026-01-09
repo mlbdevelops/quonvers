@@ -96,13 +96,13 @@ export default function ChatSettings({onClose, room, loggedUser}){
       {themePopUp && <Theme close={(e) => {
         if (e) {
           setTimeout(() => {setThemePopUp(false)}, 300);
-          e && setTimeout(() => closeFunc({close_type: 'theme', content: e}), 300);
+          e && setTimeout(() => closeFunc({close_type: 'theme', content: e}), 100);
         }else{
-          setTimeout(() => {setThemePopUp(false)}, 300);
+          setTimeout(() => {setThemePopUp(false)}, 100);
         }
       }}/>}
       
-      {nicknamesPopUp && <Nicknames participants={room.participants} onClose={(e) => {
+      {nicknamesPopUp && <Nicknames room_id={room} user={loggedUser} participants={room.participants} onClose={(e) => {
         if (e) {
           setNicknamesPopUp(false)
           e && closeFunc({close_type: 'nicknames', content: e});

@@ -25,7 +25,7 @@ export default function StickerPicker({ onSelect, onClose }) {
         Stickers
       </h1>
       <div className='grid grid-cols-3 gap-3 overflow-scroll border-0 border-t-1 border-[#262626]'>
-        {stickers.flaticon_stickers.animals.map((photo, i) => (
+        {stickers?.flaticon_stickers?.animals.map((photo, i) => (
           <img 
             key={i} 
             src={photo}

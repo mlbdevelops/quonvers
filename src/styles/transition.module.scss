@@ -1,8 +1,26 @@
 .trans{
-  animation: sizer 0.3s ease-in;
+  animation: sizer 0.2s ease-in;
 }
 
 @keyframes sizer{
+  from{
+    opacity: 0;
+    bottom: -500px;
+  }
+  to{
+    opacity: 1;
+    bottom: 5px;
+  }
+}
+
+.trans_sheet{
+  animation: sizer_sheet 0.2s ease-in;
+  transition: transform 0.1s ease;
+  will-change: transform;
+  touch-action: none;
+}
+
+@keyframes sizer_sheet{
   from{
     opacity: 0;
     bottom: -500px;
@@ -111,6 +129,49 @@
   from{
     opacity: 0.3;
     transform: scale(0.85);
+  }
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.scale{
+  animation: scale 0.3s;
+}
+
+@keyframes scale{
+  from{
+    transform: scale(.9);
+  }
+  to{
+    transform: scale(1);
+  }
+}
+
+.width_scale{
+  animation: width_scale 0.3s ease;
+}
+
+@keyframes width_scale{
+  from{
+    opacity: .2;
+    transform: scale(.9);
+  }
+  to{
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.height_scale{
+  animation: height_scale 0.3s ease;
+}
+
+@keyframes height_scale{
+  from{
+    opacity: .2;
+    transform: scale(.9);
   }
   to{
     opacity: 1;

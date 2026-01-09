@@ -1,5 +1,5 @@
 .popUp{
-  animation: bottomAnim 0.3s ease-in-out;
+  animation: bottomAnim 0.1s ease-in-out;
 }
 
 @keyframes bottomAnim{
@@ -14,7 +14,7 @@
 }
 
 .removePopUp{
-  animation: bottomAnimRemove 0.3s ease-in-out;
+  animation: bottomAnimRemove 0.1s ease-in-out;
 }
 
 @keyframes bottomAnimRemove{

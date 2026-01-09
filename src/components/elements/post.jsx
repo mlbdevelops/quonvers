@@ -33,7 +33,7 @@ export default function post({singlePost}){
   ]
   
   return(
-    <div className='w-[98%] flex flex-col gap-3 border-b border-[#161616] border-b-3 p-5 pl-2 pr-2'>
+    <div className='w-[98%] flex flex-col gap-3 border-b border-[#161616] border-b-1 p-5 pl-2 pr-2'>
       
       {/*Post header*/}
       
@@ -77,6 +77,7 @@ export default function post({singlePost}){
           {showLongPostCaption? 'See less' : 'See more'}
         </strong>}
       </p>
+      
       {repost.repost? 
         (
           <div className='flex flex-col border rounded-3xl p-3 border-[#262626] gap-2 bg-[#131313]'

@@ -47,7 +47,7 @@ export default function AuthPopUp(){
     } catch (error) {
       setNotif({
         error: true,
-        msg: `Oops, something bad happened, please try again or contact us if the problem persists`,
+        msg: `Oops, something bad happened, check your network connection and try again, if the problem persists contact us.`,
         title: 'Google error'
       })
       setLoad(false)
@@ -56,9 +56,9 @@ export default function AuthPopUp(){
 
   useEffect(() => {
     const currentWord = words[wordIndex];
-    const typingSpeed = 100;
-    const deletingSpeed = 70;
-    const wordDelay = 1100;
+    const typingSpeed = 120;
+    const deletingSpeed = 80;
+    const wordDelay = 1200;
     let timer;
     
     if (!isDeleting && text.length < currentWord.length) {
@@ -121,6 +121,11 @@ export default function AuthPopUp(){
             </div>
             continue with Google
           </div>
+          <span className='text-center text-[12px] pl-2 pr-2'>
+            By continuing, you're agree to our <strong className='text-[#6a69fe]'>
+            Privacy policy</strong> and <strong className='text-[#6a69fe]'>
+            Terms of use</strong>
+          </span>
         </div>
       </div>
       {login && (<Login close={<span onClick={() => setLogin(false)}>×</span>}/>)}

@@ -21,7 +21,7 @@ export default function Confirm({title, msg, actions, nextColor, onCancel, onSub
           display: 'flex',
         }}>
           {cancel? <button onClick={() => {
-            typeof onSubmit == 'function' && onCancel()
+            typeof onCancel == 'function' && onCancel()
           }} className='w-[50%] h-13 border-0 border-r-1 border-[#262626] active:bg-[#262626] font-bold'>
             {cancel_button_text && cancel? cancel_button_text : 'Cancel'}
           </button> : null}
