@@ -3,45 +3,52 @@ import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import { Keyboard } from "@capacitor/keyboard";
 import SocketProvider from "../sockets/socketProvider";
-import { Capacitor } from '@capacitor/core'
-import { StatusBar } from "@capacitor/status-bar";
+import { Capacitor } from '@capacitor/core';
+import { StatusBar, Style } from "@capacitor/status-bar";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
-  
+
   useEffect(() => {
     if (typeof window === "undefined" || !Capacitor.isNativePlatform()) return;
-    
+
     const setupStatusBar = async () => {
       if (StatusBar) {
         await StatusBar.setOverlaysWebView({ overlay: true });
         await StatusBar.setBackgroundColor({ color: 'transparent' });
-        await StatusBar.setStyle({ style: 'DARK' });
+        await StatusBar.setStyle({ style: Style.Dark });
       }
     };
-    
+
     setupStatusBar();
-    
-    const keyboardWillShow = Keyboard.addListener("keyboardWillShow", (e) => {
-      setIsKeyboardVisible(true);
-      setKeyboardHeight(e.keyboardHeight);
-    });
-    const keyboardWillHide = Keyboard.addListener("keyboardWillHide", () => {
-      setIsKeyboardVisible(false);
-      setKeyboardHeight(0);
-    });
-    return () => {
-      keyboardWillShow.remove();
-      keyboardWillHide.remove();
+
+    const handleKeyboardShow = async () => {
+      const keyboardWillShow = await Keyboard.addListener("keyboardWillShow", (e) => {
+        setIsKeyboardVisible(true);
+        setKeyboardHeight(e.keyboardHeight);
+      });
+
+      const keyboardWillHide = await Keyboard.addListener("keyboardWillHide", () => {
+        setIsKeyboardVisible(false);
+        setKeyboardHeight(0);
+      });
+
+      return () => {
+        keyboardWillShow.remove();
+        keyboardWillHide.remove();
+      };
     };
+
+    handleKeyboardShow();
+
   }, []);
-  
+
   return (
     <div
       style={{
         paddingBottom: isKeyboardVisible ? `${keyboardHeight}px` : "0",
-        transition: "padding-bottom 0.3s ease",
+        transition: "padding-bottom 0.3s ease"
       }}
     >
       <Component {...pageProps} />

@@ -1,5 +1,5 @@
 "use client"
-
+import { Capacitor } from '@capacitor/core'
 import dynamic from 'next/dynamic'
 import { Settings, ChevronLeft, Send, Smile, Plus, Clock, Check, Keyboard, Phone, Video, Mic, Images, Sticker, Play, Pause, ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -52,6 +52,15 @@ export default function ChatPage() {
   const [show_sheet, set_show_sheet] = useState(false)
   const [counter_second, set_counter_sec] = useState(0)
   const [counter_min, set_counter_min] = useState(0)
+  const [is_native, set_is_native] = useState(true)
+  
+  useEffect(() => {
+    async function check_platform (){
+      if (await Capacitor.isNativePlatform()) return set_is_native(true)
+      return set_is_native(false)
+    }
+    check_platform()
+  }, [])
   
   useEffect(() => {
     function counter(){
@@ -216,6 +225,8 @@ export default function ChatPage() {
   const header = (
     <div className="flex justify-between items-center w-full pl-2 pr-2 h-[55px]" style={{
       backgroundColor: 'rgba(0, 0, 0, 0.9)',
+      paddingTop: is_native? '30px' : '',
+      height: is_native? '80px' : '',
     }}>
       <div className="flex gap-2 items-center">
         <ArrowLeft className='ml-1 mr-1' onClick={() => router.back()} />
