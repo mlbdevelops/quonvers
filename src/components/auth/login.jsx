@@ -2,7 +2,8 @@ import styles from '@/styles/login.module.scss';
 import Loader from '@/components/ui/loading';
 import Confirm from '@/components/ui/confirm';
 import { Eye, EyeClosed } from 'lucide-react';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Capacitor } from '@capacitor/core'
 
 export default function Login({close}){
   const [showPass, setShowPass] = useState(false)
@@ -10,6 +11,15 @@ export default function Login({close}){
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
   const [msgData, setMsgData] = useState({})
+  const [is_native, set_is_native] = useState(true)
+  
+  useEffect(() => {
+    async function check_platform (){
+      if (await Capacitor.isNativePlatform()) return set_is_native(true)
+      return set_is_native(false)
+    }
+    check_platform()
+  }, [])
   
   const login = async () => {
     if (!email && !password) {
@@ -47,9 +57,19 @@ export default function Login({close}){
   }
   
   return(
-    <div className={styles.body}>
+    <div 
+      className={styles.body}
+      style={{
+        paddingTop: is_native? 120 : ''
+      }}
+    >
       
-      <div className={styles.close}>
+      <div 
+        className={styles.close}
+        style={{
+          marginTop: is_native? 30 : ''
+        }}
+      >
         {close}
       </div>
       

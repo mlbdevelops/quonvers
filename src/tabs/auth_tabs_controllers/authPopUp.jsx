@@ -5,13 +5,24 @@ import { useState, useEffect } from 'react'
 import { auth, provider, signInWithPopup } from "@/firebase/googleAuth.js";
 import Load from '@/components/ui/loading'
 import Confirm from '@/components/ui/confirm'
+import { Capacitor } from '@capacitor/core'
+import { BackButton } from '@/hooks/backButton'
 
 export default function AuthPopUp(){
   const [text, setText] = useState('');
   const [login, setLogin] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const words = ['Quonvers', 'Chat', 'Meet', 'Laugth'];
+  const [is_native, set_is_native] = useState(true)
+  const words = ['Quonvers', 'Chat', 'Meet', 'Explore'];
+  
+  useEffect(() => {
+    async function check_platform (){
+      if (await Capacitor.isNativePlatform()) return set_is_native(true)
+      return set_is_native(false)
+    }
+    check_platform()
+  }, [])
   
   const [load, setLoad] = useState(false);
   const [notif, setNotif] = useState({});
@@ -53,7 +64,12 @@ export default function AuthPopUp(){
       setLoad(false)
     }
   }
-
+  
+  BackButton(() => {
+    login && setLogin(true)
+    notif && setNotif({})
+  })
+  
   useEffect(() => {
     const currentWord = words[wordIndex];
     const typingSpeed = 120;
@@ -96,7 +112,12 @@ export default function AuthPopUp(){
           cancel_button_text='Report'
           submit_button_text='Try again'
         />}
-        <h1 className={styles.h1}>{text}</h1> 
+        <h1 
+          className={styles.h1}
+          style={{
+            marginTop: is_native? 70 : ''
+          }}
+        >{text}</h1> 
         <div className={styles.optionsDiv}> 
           <div className={styles.option}>
             <div className={styles.icon}>

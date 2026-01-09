@@ -16,8 +16,6 @@ export const stickers = {
       "https://cdn-icons-png.flaticon.com/256/4105/4105455.png",
       "https://cdn-icons-png.flaticon.com/256/4105/4105456.png",
       "https://cdn-icons-png.flaticon.com/256/4105/4105441.png",
-      "https://cdn-icons-png.flaticon.com/256/4105/4105441.png",
-      "https://cdn-icons-png.flaticon.com/256/4105/4105441.png",
     ]
   }
 }

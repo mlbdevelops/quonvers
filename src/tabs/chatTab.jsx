@@ -85,7 +85,6 @@ export default function ChatTab({onEmit}){
   return(
     <div className='h-screen w-full text-center flex justify-between items-center flex-col'>
       <Header title='Messages' right={[<Menu size={22} key={1}/>, <UserCircle onClick={log_out} key={2}/>]}/>
-      
       <div className='flex-1 flex w-[100%] pt-2 flex-col items-center overflow-scroll pb-25'>
         <div 
           type='text'

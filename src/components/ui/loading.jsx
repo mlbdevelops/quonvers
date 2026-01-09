@@ -21,9 +21,8 @@ export default function Loader(){
         height: '100px',
         width: '100px',
         borderRadius: '20px',
-        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgba(0,0,0,0.7)',
         backDropFilter: 'blur(100px)',
-        border: '1px solid #111111'
       }}>
         <div className={styles.load} style={{
           display: 'flex',

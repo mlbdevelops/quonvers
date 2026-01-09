@@ -6,9 +6,9 @@ export default function Confirm({title, msg, actions, nextColor, onCancel, onSub
     <div onClick={onClose} className={styles.blur}>
       <div onClick={(e) => e.stopPropagation()} className={styles.msgBox}>
         <strong style={{
-          fontSize: '30px',
+          fontSize: '20px',
           margin: '15px 0 0 0',
-          color: '#6a69fe',
+          //color: '#6a69fe',
           fontWeight: 'bold',
         }}>{title}</strong> 
         
@@ -22,12 +22,12 @@ export default function Confirm({title, msg, actions, nextColor, onCancel, onSub
         }}>
           {cancel? <button onClick={() => {
             typeof onCancel == 'function' && onCancel()
-          }} className='w-[50%] h-13 border-0 border-r-1 border-[#262626] active:bg-[#262626] font-bold'>
+          }} className='w-[50%] h-12 border-0 border-r-1 border-[#262626] active:bg-[#262626]'>
             {cancel_button_text && cancel? cancel_button_text : 'Cancel'}
           </button> : null}
           <button onClick={() => {
             typeof onSubmit == 'function' && onSubmit()
-          }} className={`${cancel? 'w-[50%]' : 'w-full'} h-13 border-0 ${cancel? 'border-l-1' : ''} border-[#262626] active:bg-[#262626] text-[#6a69fe] font-bold`}>
+          }} className={`${cancel? 'w-[50%]' : 'w-full'} h-12 border-0 ${cancel? 'border-l-1' : ''} border-[#262626] active:bg-[#262626]`}>
             {submit_button_text? submit_button_text : 'Ok'}
           </button>
         </div>

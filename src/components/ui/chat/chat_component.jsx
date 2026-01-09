@@ -4,15 +4,17 @@ import { Settings, ChevronLeft, Send, Smile, Plus, Clock, Check, Keyboard, Phone
 import { useState, useEffect, useRef } from "react";
 import WaveformPlayer from '@/components/ui/chat/record/wave/waveforms';
 import Image from '@/components/elements/image'
+import haptics from '@/hooks/haptics'
 
 export default function Chat_component({msg, recipient, i, user, is_last, current_user_name, current_user_profile, onContextMenu}){
   const [show_time, setShow_time] = useState(is_last || false)
   const [playing_id, set_playing_id] = useState('')
-  
+  const { vibrate } = haptics()
   const reciProfile = useRef(null)
   
   return(
     <div onContextMenu={() => {
+      vibrate()
       onContextMenu(msg.type != 'chat_set' && msg)
     }} onClick={() => setShow_time(!show_time)} key={i} className={msg.sender_id === user && msg.type != 'chat_set' ? styles.msgRight : msg.sender_id !== user && msg.type != 'chat_set'? styles.msgLeft : null}>
       
