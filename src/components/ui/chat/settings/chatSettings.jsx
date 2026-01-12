@@ -4,6 +4,7 @@ import { ChevronLeft, User, AlertTriangle, Palette, Lock, UserPen, UserX2, Smile
 import Header from '@/components/elements/header'
 import Theme from '@/components/ui/chat/settings/theme'
 import Nicknames from '@/components/ui/chat/settings/nicknames';
+import QuickReaction from '@/components/ui/chat/settings/quick_reaction';
 import styles from '@/styles/chatSettings.module.scss'
 import { useState } from 'react'
 import Image from '@/components/elements/image'
@@ -13,6 +14,7 @@ export default function ChatSettings({onClose, room, loggedUser}){
   const [currentUser, setCurrentUser] = useState(room.participants?.find((p) => p.id === loggedUser) || {});
   const [themePopUp, setThemePopUp] = useState(false)
   const [nicknamesPopUp, setNicknamesPopUp] = useState(false)
+  const [quickR, setquickR] = useState(false)
   
   const closeFunc = (params) => {
     onClose(params)
@@ -31,7 +33,8 @@ export default function ChatSettings({onClose, room, loggedUser}){
     },
     { 
       label: "Quick reaction",
-      icon: Smile
+      icon: Smile,
+      action: () => setquickR(true)
     },
     { 
       label: "Read receipts", 
@@ -110,6 +113,16 @@ export default function ChatSettings({onClose, room, loggedUser}){
           setNicknamesPopUp(false);
         }
       }}/>}
+      
+      {quickR && <QuickReaction room_id={room} user={loggedUser} participants={room.participants} onClose={(e) => {
+        if (e) {
+          setquickR(false)
+          e && closeFunc({close_type: 'reaction', content: e});
+        }else {
+          setquickR(false);
+        }
+      }}/>}
+      
       <div className='w-full overflow-scroll flex flex-col pb-10 flex-1'>
         {options.map(({label, icon: Icon, action, danger}) => (
           <div onClick={action || undefined} className='flex items-center gap-4 w-full p-4 pb-3 pt-3 active:bg-[#1d1d1d77]'>

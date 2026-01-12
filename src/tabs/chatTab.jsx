@@ -31,7 +31,8 @@ export default function ChatTab({onEmit}){
       const token = JSON.parse(localStorage.getItem('token'))
       const getConvs = async () => {
         const cached = await getProvider('conversationsList') || []
-        if (cached.length >= 1) return
+        //if(conversations.length = 7) return setLoad(false)
+        if (cached.length >= 1) return 
         const res = await fetch('http://localhost:4000/api/chat/conversationList', {
           headers: {
             token
@@ -85,12 +86,12 @@ export default function ChatTab({onEmit}){
   return(
     <div className='h-screen w-full text-center flex justify-between items-center flex-col'>
       <Header title='Messages' right={[<Menu size={22} key={1}/>, <UserCircle onClick={log_out} key={2}/>]}/>
-      <div className='flex-1 flex w-[100%] pt-2 flex-col items-center overflow-scroll pb-25'>
+      <div className='flex-1 flex w-[100%] flex-col items-center overflow-scroll pb-25'>
         <div 
           type='text'
           className='bg-[#1d1d1d] p-3 pl-5 pr-5 rounded-[50px] w-[94%] flex items-center text-[darkgray] justify-start gap-3' 
         ><Search size={20}/> Search...</div>
-        <div className='w-[100%] flex flex-col mt-4'>
+        <div className='w-[100%] flex flex-col mt-2'>
           {conversations.length >= 1? conversations.map((msg, i) => {
             const getOtherUser = msg?.participants.find(u => u.id !== user)
             return (

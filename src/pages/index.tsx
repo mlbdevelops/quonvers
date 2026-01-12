@@ -42,11 +42,14 @@ export default function App() {
   if (isLoading) {
     return (
       <div className="w-full h-[100dvh] flex flex-col justify-center items-center gap-4">
-        <div className={styles.loader}></div>
-        Loading...
+        <img className='h-15 w-15 rounded-xl' src="/favicon.ico" alt="App logo"/>
+        <div className='flex items-center gap-2'>
+          <div className={styles.loader}></div> 
+          Loading...
+        </div>
       </div>
     );
   }
 
-  return user?.id ? <Home /> : <AuthPopUp />;
+  return user?.id ? <Home/> : <AuthPopUp/>;
 }

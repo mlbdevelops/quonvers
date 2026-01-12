@@ -66,7 +66,7 @@ export default function AuthPopUp(){
   }
   
   BackButton(() => {
-    login && setLogin(true)
+    login && setLogin(false)
     notif && setNotif({})
   })
   

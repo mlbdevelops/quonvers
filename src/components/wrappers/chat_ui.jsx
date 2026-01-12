@@ -1,7 +1,7 @@
 "use client"
 import { Capacitor } from '@capacitor/core'
 import dynamic from 'next/dynamic'
-import { Settings, ChevronLeft, Send, Smile, Plus, Clock, Check, Keyboard, Phone, Video, Mic, Images, Sticker, Play, Pause, ArrowLeft } from "lucide-react";
+import { Settings, ChevronLeft, Send, Smile, PlusCircle, Clock, Check, Keyboard, Phone, Video, Mic, Images, Sticker, Play, Pause, ArrowLeft } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect, useRef } from "react";
 import styles from "@/styles/chat.module.scss";
@@ -18,6 +18,7 @@ import EmojiPicker from "emoji-picker-react";
 import Sheet from '@/components/elements/sheet';
 import Image from '@/components/elements/image'
 import MsgFocus from '@/components/ui/chat/chat_options/message_focus'
+import { BackButton } from '@/hooks/backButton'
 
 export default function ChatPage() {
   const { recording, startRecording, stopRecording, audioURL, audioBlob } = useVoiceRecorder()
@@ -34,8 +35,8 @@ export default function ChatPage() {
   const [room, setRoom] = useState({});
   const [recipient, setRecipient] = useState({});
   const [nickname, set_nickname] = useState(typeof room.nicknames == 'Array' && room?.nicknames.find(n => n.user_id === recipient.id)?.nickname || "");
-  console.log(room)
-  console.log(recipient)
+  console.log(room.nicknames)
+  //console.log(recipient)
   const [msgs, setMsgs] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
   const [audio_playing, set_playing_audio] = useState(false);
@@ -53,6 +54,15 @@ export default function ChatPage() {
   const [counter_second, set_counter_sec] = useState(0)
   const [counter_min, set_counter_min] = useState(0)
   const [is_native, set_is_native] = useState(true)
+  
+  BackButton(() => {
+    if (show_msg_focus) return set_show_msg_focus({})
+    if (settings) return setSettings(false)
+    if (isMedia) return setIsMedia(false)
+    if (show_sheet) return set_show_sheet(false)
+    if (recording) return stopRecording()
+    return router.back()
+  })
   
   useEffect(() => {
     async function check_platform (){
@@ -172,21 +182,19 @@ export default function ChatPage() {
   }, []);
   
   const sendMessage = (type, content) => {
-    if (!user_content.trim()) return;
+    if (!user_content.trim() && !content) return;
     
     function hasAnyAlphabet(text) {
       return /\p{L}/u.test(text);
     }
-    
     const msgData = {
       senderId: user,
       receiverId: recipient.id,
       content: content || user_content.trim(),
-      type: type || hasAnyAlphabet(user_content)? "text" : "emoji",
+      type: type? type : hasAnyAlphabet(user_content || content)? "text" : "emoji",
       roomId,
     };
     socket.emit("private_message", msgData);
-    
     scrollBottom({behavior: 'smooth'})
     set_user_content("");
   };
@@ -350,10 +358,10 @@ export default function ChatPage() {
         }}>
         
         <div className='w-full flex items-center justify-evenly'>
-          <div className={`${recording? 'w-12' : 'w-[83%]'} mb-2 mt-1 rounded-full h-12 overflow-hidden flex items-center justify-between pl-3 pr-3 gap-3  backdrop-blur-[5px]`} style={{
+          <div className={`${recording? 'w-12' : 'w-[83%]'} mb-2 mt-1 rounded-full h-12 overflow-hidden flex items-center justify-between pl-3 pr-3 gap-1  backdrop-blur-[5px]`} style={{
             backgroundColor: '#2c2535',
           }}> 
-            <Plus 
+            <PlusCircle
               style={{ 
                 transform: isMedia? 'rotate(315deg)' : null
               }} 
@@ -381,10 +389,17 @@ export default function ChatPage() {
                 setEmoPicker(false)
               }}
             />
+            {!user_content && room.quick_reaction && <Mic
+              onClick={() => {
+                !recording? startRecording() : stopRecording()
+              }}
+              className='ml-3'
+            />}
+            
           </div>
-          <div className={`${!recording? 'w-12' : 'w-[85%]'} h-12 rounded-full text-white flex items-center justify-center bg-[#6a69fe] transition ${recording && styles.sender}`} onClick={() => sendMessage()}>
+          <div className={`${!recording? 'w-12' : 'w-[85%]'} h-12 rounded-full text-white flex items-center justify-center ${room.quick_reaction && !user_content? null : 'bg-[#6a69fe]'} transition ${recording && styles.sender}`} onClick={() => sendMessage()}>
             {user_content? <Send size={20} stroke="white" /> : 
-              <div 
+              !room.quick_reaction? <div 
                 className='flex w-full h-full rounded-full items-center justify-between scale-75'
                 onTouchStart={() => {
                   !recording && startRecording()
@@ -403,7 +418,16 @@ export default function ChatPage() {
                   <div className='w-[5%] h-[20%] bg-white rounded-full'></div>
                   <div className='w-[5%] h-[35%] bg-white rounded-full'></div>
                 </div>
-              </div>
+              </div> : 
+              <span 
+                className='text-3xl'
+                onClick={() => {
+                  //set_user_content(room.quick_reaction)
+                  sendMessage('emoji', room.quick_reaction)
+                }}
+              >
+              {room.quick_reaction}
+              </span>
             }
           </div>
         </div>
