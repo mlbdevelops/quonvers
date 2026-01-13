@@ -20,36 +20,18 @@ export default function App({ Component, pageProps }: AppProps) {
         await StatusBar.setStyle({ style: Style.Dark });
       }
     };
-
+    
     setupStatusBar();
-
-    const handleKeyboardShow = async () => {
-      const keyboardWillShow = await Keyboard.addListener("keyboardWillShow", (e) => {
-        setIsKeyboardVisible(true);
-        setKeyboardHeight(e.keyboardHeight);
-      });
-
-      const keyboardWillHide = await Keyboard.addListener("keyboardWillHide", () => {
-        setIsKeyboardVisible(false);
-        setKeyboardHeight(0);
-      });
-
-      return () => {
-        keyboardWillShow.remove();
-        keyboardWillHide.remove();
-      };
-    };
-
-    handleKeyboardShow();
-
+    
+    Keyboard.setResizeMode({
+      mode: 'none'
+    })
+    
   }, []);
 
   return (
     <div
-      style={{
-        paddingBottom: isKeyboardVisible ? `${keyboardHeight}px` : "0",
-        transition: "padding-bottom 0.3s ease"
-      }}
+      className='flex flex-col fixed inset-0 overflow-hidden'
     >
       <Component {...pageProps} />
       <SocketProvider/>

@@ -10,3 +10,15 @@ body {
 body::webkit-scrollbar{
   display: none;
 }
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+#__next {
+  height: 100%;
+  overflow: hidden;
+}

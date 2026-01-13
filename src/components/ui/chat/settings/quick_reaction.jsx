@@ -40,7 +40,7 @@ export default function QuickReaction({onClose, participants, user, room_id}){
   }
   
   return(
-    <div ref={body} className={`w-[100dvw] h-[100dvh] z-20 bottom-0 fixed bg-[#0f0f0f] flex flex-col items-center ${styles.popUp}`}>
+    <div ref={body} className={`w-full h-full z-20 bottom-0 fixed bg-[#0f0f0f] flex flex-col items-center ${styles.popUp}`}>
       <Header 
         left={<X onClick={() => closeFunc()}/>}
         title='Quick reactions'

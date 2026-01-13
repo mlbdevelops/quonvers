@@ -223,7 +223,7 @@ export default function ChatPage() {
   
   if (isLoading && !recipient) {
     return (
-      <div className="w-full h-[100dvh] flex flex-col justify-center items-center gap-4">
+      <div className="w-full h-[100%] flex justify-center items-center gap-2">
         <div className={styles2.loader}></div>
         Loading...
       </div>
@@ -282,7 +282,7 @@ export default function ChatPage() {
   
   return (
     <div 
-      className={`flex flex-col justify-center items-center h-[100dvh] ${styles.body}`}
+      className={`flex flex-col justify-center items-center h-[100%] ${styles.body}`}
       style={{
         background: `url(${theme? theme : room?.bg_url})`,
       }}
