@@ -1,7 +1,7 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
-import { Keyboard } from "@capacitor/keyboard";
+import { Keyboard, KeyboardResize } from '@capacitor/keyboard';
 import SocketProvider from "../sockets/socketProvider";
 import { Capacitor } from '@capacitor/core';
 import { StatusBar, Style } from "@capacitor/status-bar";
@@ -23,9 +23,7 @@ export default function App({ Component, pageProps }: AppProps) {
     
     setupStatusBar();
     
-    Keyboard.setResizeMode({
-      mode: 'native'
-    })
+    Keyboard.setResizeMode({ mode: KeyboardResize.None });
     
   }, []);
 
