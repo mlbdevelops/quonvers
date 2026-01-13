@@ -20,7 +20,7 @@ export default function logo(){
   
   return(
     <div className='w-screen h-screen flex items-center justify-evenly'>
-      <div ref={qrRef} className='w-30 h-30 bg-[rgba(106,105,254,0.224)] flex items-center justify-center border-2'>
+      <div ref={qrRef} className='w-23 h-23 bg-[#201F41] flex items-center justify-center border-2'>
         <div className='h-10 w-10 flex items-center justify-center scale-190 bg-[#6a69fe]' style={{
           borderRadius: '20px 20px 20px 5px',
         }}>
