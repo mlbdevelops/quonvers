@@ -24,7 +24,7 @@ export default function App({ Component, pageProps }: AppProps) {
     setupStatusBar();
     
     Keyboard.setResizeMode({
-      mode: 'none'
+      mode: 'native'
     })
     
   }, []);
